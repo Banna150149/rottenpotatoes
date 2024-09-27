@@ -3,7 +3,12 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    # Determine the sort column and direction
+    sort_column = params[:sort] || "title" # Default sort by title
+    sort_direction = params[:direction] || "asc" # Default to ascending order
+    
+    # Fetch sorted movies
+    @movies = Movie.order("#{sort_column} #{sort_direction}")
   end
 
   # GET /movies/1 or /movies/1.json
@@ -22,10 +27,10 @@ class MoviesController < ApplicationController
   # POST /movies or /movies.json
   def create
     @movie = Movie.new(movie_params)
-
+  
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to @movie, notice: "Movie was successfully created." }
+        format.html { redirect_to movies_path(sort: params[:sort], direction: params[:direction]), notice: "Movie was successfully created." }
         format.json { render :show, status: :created, location: @movie }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -33,12 +38,13 @@ class MoviesController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
     respond_to do |format|
       if @movie.update(movie_params)
-        format.html { redirect_to @movie, notice: "Movie was successfully updated." }
+        format.html { redirect_to movie_path(@movie, sort: params[:sort], direction: params[:direction]), notice: "Movie was successfully updated." }
         format.json { render :show, status: :ok, location: @movie }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -46,16 +52,18 @@ class MoviesController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /movies/1 or /movies/1.json
   def destroy
-    @movie.destroy!
-
+    @movie = Movie.find(params[:id])
+    @movie.destroy
     respond_to do |format|
-      format.html { redirect_to movies_path, status: :see_other, notice: "Movie was successfully destroyed." }
+      format.html { redirect_to movies_path(sort: params[:sort], direction: params[:direction]), notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

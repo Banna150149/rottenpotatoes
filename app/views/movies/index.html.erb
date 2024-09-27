@@ -4,13 +4,29 @@
 
 <h1>Movies</h1>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th><%= sortable "title", "Title" %></th>
+      <th><%= sortable "rating", "Rating" %></th>
+      <th><%= sortable "release_date", "Release Date" %></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @movies.each do |movie| %>
+      <tr>
+        <td class="<%= params[:sort] == 'title' ? "sort-#{params[:direction]}" : '' %>"><%= movie.title %></td>
+        <td class="<%= params[:sort] == 'rating' ? "sort-#{params[:direction]}" : '' %>"><%= movie.rating %></td>
+        <td class="<%= params[:sort] == 'release_date' ? "sort-#{params[:direction]}" : '' %>"><%= movie.release_date %></td>
+        <td>
+          <%= link_to "Show", movie_path(movie, sort: params[:sort], direction: params[:direction]) %> |
+          <%= link_to "Edit", edit_movie_path(movie, sort: params[:sort], direction: params[:direction]) %> |
+          <%= button_to "Destroy", movie_path(movie, sort: params[:sort], direction: params[:direction]), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to "New movie", new_movie_path %>
+<%= link_to "New movie", new_movie_path(sort: params[:sort], direction: params[:direction]) %>

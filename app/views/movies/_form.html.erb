@@ -31,6 +31,9 @@
     <%= form.text_field :release_date %>
   </div>
 
+  <%= hidden_field_tag :sort, params[:sort] %>
+  <%= hidden_field_tag :direction, params[:direction] %>
+
   <div>
     <%= form.submit %>
   </div>

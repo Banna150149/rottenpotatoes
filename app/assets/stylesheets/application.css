@@ -1,15 +1,66 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* Highlight column being sorted */
+th.sort-asc {
+    background-color: #a5d6a7; /* Darker green for ascending */
+    color: #1b5e20;            /* Even darker green text for ascending */
+  }
+  
+  th.sort-desc {
+    background-color: #ffab91; /* Darker red for descending */
+    color: #bf360c;            /* Even darker red text for descending */
+  }
+  
+  /* Style table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  table td {
+    background-color: #ffffff; /* White for table cells */
+  }
+  
+  /* Highlight cells in the sorted column with a lighter shade */
+  td.sort-asc {
+    background-color: #c8e6c9; /* Lighter green for ascending column cells */
+  }
+  
+  td.sort-desc {
+    background-color: #ffccbc; /* Lighter red for descending column cells */
+  }
+  
+  /* Make buttons more visually appealing */
+  button, input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover, input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  /* Style the movie show/edit pages */
+  h1 {
+    color: #3F51B5;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  div {
+    margin-bottom: 20px;
+  }
+  
